@@ -7,6 +7,12 @@ import jwtDecode from 'jwt-decode';
 import { ThemeProvider as MultiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
+//Redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { SET_AUTHENTICATED } from './redux/types';
+import { logoutUser, getUserData } from './redux/actions/userActions';
+
 //Components
 import NavBar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
@@ -17,40 +23,40 @@ import login from './pages/login';
 import signup from './pages/signup';
 
 import themeObj from './util/theme';
+import axios from 'axios';
 
 const theme = createMuiTheme(themeObj);
 
 const token = localStorage.FBToken;
 
-let authenticated;
-
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < new Date()) {
+    store.dispatch(logoutUser());
     window.location.href = '/login';
-    authenticated = false;
   }
   else {
-    authenticated = true;
+    store.dispatch({ type: SET_AUTHENTICATED });
+    axios.defaults.headers.common['Autorization'] = `Bearer ${token}`
+    store.dispatch(getUserData());
   }
 }
 
 function App() {
   return (
     <MultiThemeProvider theme={theme}>
-
-      <div className="App">
+      <Provider store={store}>
         <Router>
           <div className="container">
             <NavBar />
             <Switch>
               <Route exact path='/' component={home} />
-              <AuthRoute exact path='/login' component={login} authenticated={authenticated} />
-              <AuthRoute extac path='/signup' component={signup} authenticated={authenticated} />
+              <AuthRoute exact path='/login' component={login} />
+              <AuthRoute extac path='/signup' component={signup} />
             </Switch>
           </div>
         </Router>
-      </div>
+      </Provider>
     </MultiThemeProvider>
   );
 }
