@@ -26,6 +26,29 @@ const theme = createMuiTheme({
       contrastText: '#000',
     },
   },
+  formStyle: {
+    form: {
+      textAlign: 'center',
+    },
+    icon: {
+      maxWidth: 50,
+      margin: '20px auto',
+    },
+    pageTitle: {
+      margin: '10px auto',
+    },
+    textField: {
+      margin: '10px auto',
+    },
+    button: {
+      margin: '20px auto',
+    },
+    customError: {
+      color: '#ff0000',
+      fontSize: '0.8rem',
+      marginTop: 10,
+    },
+  }
 });
 
 
