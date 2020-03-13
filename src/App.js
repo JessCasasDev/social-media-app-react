@@ -42,7 +42,7 @@ if (token) {
 function App() {
   return (
     <MultiThemeProvider theme={theme}>
-      <Provider>
+      <Provider store={store}>
         <Router>
           <div className="container">
             <NavBar />

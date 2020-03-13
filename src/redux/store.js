@@ -7,20 +7,25 @@ import uiReducer from './reducers/uiReducer';
 
 const initialState = {};
 
-const middleware = { thunk };
+const middleware = [thunk];
 
-const reducer = combineReducers({
+const reducers = combineReducers({
     user: userReducer,
     data: dataReducer,
     UI: uiReducer
 });
 
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : f => f;
+    
 const store = createStore(
-    reducer,
+    reducers,
     initialState,
     compose(
         applyMiddleware(...middleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    ))
+        devTools
+    )
+)
 
 export default store;
