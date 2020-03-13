@@ -28,6 +28,13 @@ class login extends Component {
             errors: []
         }
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+            this.setState({ errors: nextProps.UI.errors });
+        }
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         const userData = {
@@ -42,6 +49,7 @@ class login extends Component {
             [e.target.name]: e.target.value,
         })
     }
+
     render() {
         const { errors } = this.state;
         const { classes, UI: { loading } } = this.props;
@@ -115,8 +123,8 @@ const mapStateToProps = (state) => ({
     UI: state.UI,
 });
 
-const mapActionToProps = (state) => ({
+const mapActionToProps = {
     loginUser
-})
+}
 
 export default connect(mapStateToProps, mapActionToProps)(withStyles(styles)(login));

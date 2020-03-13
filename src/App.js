@@ -27,7 +27,7 @@ const theme = createMuiTheme(themeObj);
 const token = localStorage.FBToken;
 
 let authenticated;
-
+/* 
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < new Date()) {
@@ -37,7 +37,7 @@ if (token) {
   else {
     authenticated = true;
   }
-}
+} */
 
 function App() {
   return (
