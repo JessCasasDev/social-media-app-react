@@ -7,6 +7,10 @@ import jwtDecode from 'jwt-decode';
 import { ThemeProvider as MultiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
+//Redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 //Components
 import NavBar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
@@ -38,8 +42,7 @@ if (token) {
 function App() {
   return (
     <MultiThemeProvider theme={theme}>
-
-      <div className="App">
+      <Provider>
         <Router>
           <div className="container">
             <NavBar />
@@ -50,7 +53,7 @@ function App() {
             </Switch>
           </div>
         </Router>
-      </div>
+      </Provider>
     </MultiThemeProvider>
   );
 }
