@@ -3,7 +3,8 @@ import {
     SET_ERRORS,
     CLEAR_ERRORS,
     LOADING_UI,
-    SET_UNAUTHENTICATED
+    SET_UNAUTHENTICATED,
+    LOADING_USER,
 } from '../types';
 import axios from 'axios';
 
@@ -32,14 +33,18 @@ export const logoutUser = () => (dispatch) => {
 }
 
 export const getUserData = () => (dispacth) => {
+    dispacth({ type: LOADING_USER });
+    console.log("getting user data");
+    
     axios.get('/user')
-        .then(response => {
+        .then(response => {    
             dispacth({
                 type: SET_USER,
                 payload: response.data
             });
         })
         .catch(error => {
+            console.log("getting user data, eror");
             console.error(error);
         });
 }
