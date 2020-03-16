@@ -35,9 +35,9 @@ export const logoutUser = () => (dispatch) => {
 export const getUserData = () => (dispacth) => {
     dispacth({ type: LOADING_USER });
     console.log("getting user data");
-    
+
     axios.get('/user')
-        .then(response => {    
+        .then(response => {
             dispacth({
                 type: SET_USER,
                 payload: response.data
@@ -74,4 +74,15 @@ function setAuthorizationHeader(token) {
 
     localStorage.setItem('FBToken', FBIToken);
     axios.defaults.headers.common['Authorization'] = FBIToken;
+}
+
+export const uploadImage = (formData) => (dispacth) => {
+    dispacth({ type: LOADING_USER });
+    axios.post('user/image', formData)
+        .then(response => {
+            dispacth(getUserData());
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
