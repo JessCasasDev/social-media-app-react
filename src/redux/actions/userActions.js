@@ -3,7 +3,8 @@ import {
     SET_ERRORS,
     CLEAR_ERRORS,
     LOADING_UI,
-    SET_UNAUTHENTICATED
+    SET_UNAUTHENTICATED,
+    LOADING_USER,
 } from '../types';
 import axios from 'axios';
 
@@ -31,15 +32,19 @@ export const logoutUser = () => (dispatch) => {
     dispatch({ type: SET_UNAUTHENTICATED });
 }
 
-export const getUserData = () => (dispacth) => {
+export const getUserData = () => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    console.log("getting user data");
+
     axios.get('/user')
         .then(response => {
-            dispacth({
+            dispatch({
                 type: SET_USER,
                 payload: response.data
             });
         })
         .catch(error => {
+            console.log("getting user data, eror");
             console.error(error);
         });
 }
@@ -69,4 +74,26 @@ function setAuthorizationHeader(token) {
 
     localStorage.setItem('FBToken', FBIToken);
     axios.defaults.headers.common['Authorization'] = FBIToken;
+}
+
+export const uploadImage = (formData) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios.post('user/image', formData)
+        .then(() => {
+            dispatch(getUserData());
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+export const editUserDetails = (userDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios.post('user/', userDetails)
+        .then(() => {
+            dispatch(getUserData());
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
