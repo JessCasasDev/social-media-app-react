@@ -32,13 +32,13 @@ export const logoutUser = () => (dispatch) => {
     dispatch({ type: SET_UNAUTHENTICATED });
 }
 
-export const getUserData = () => (dispacth) => {
-    dispacth({ type: LOADING_USER });
+export const getUserData = () => (dispatch) => {
+    dispatch({ type: LOADING_USER });
     console.log("getting user data");
 
     axios.get('/user')
         .then(response => {
-            dispacth({
+            dispatch({
                 type: SET_USER,
                 payload: response.data
             });
@@ -76,11 +76,22 @@ function setAuthorizationHeader(token) {
     axios.defaults.headers.common['Authorization'] = FBIToken;
 }
 
-export const uploadImage = (formData) => (dispacth) => {
-    dispacth({ type: LOADING_USER });
+export const uploadImage = (formData) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
     axios.post('user/image', formData)
-        .then(response => {
-            dispacth(getUserData());
+        .then(() => {
+            dispatch(getUserData());
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+export const editUserDetails = (userDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios.post('user/', userDetails)
+        .then(() => {
+            dispatch(getUserData());
         })
         .catch(error => {
             console.error(error);
