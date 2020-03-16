@@ -34,6 +34,7 @@ const styles = (theme) => ({
             heigth: 200,
             objectFit: 'cover',
             maxWidth: '100%',
+            maxHeight: "200px",
             borderRadius: '50%',
         },
         '& .profile-details': {
@@ -82,7 +83,7 @@ class Profile extends Component {
             <Paper className={classes.paper}>
                 <div className={classes.profile}>
                     <div className="image-wrapper">
-                        <img src={imageUrl} alt="profile" className="profile-img"/>
+                        <img src={imageUrl} alt="profile" className="profile-image"/>
                     </div>
                     <hr />
                     <div className="profile-details">
