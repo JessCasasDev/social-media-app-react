@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 import { connect } from 'react-redux';
-import { getScream } from '../../redux/actions/dataActions';
+import { getScream, clearErrors } from '../../redux/actions/dataActions';
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -65,11 +66,10 @@ class ScreamDialog extends Component {
 
     handleClose = () => {
         this.setState({ open: false });
+        this.props.clearErrors();
     }
 
     render() {
-        console.log("ScreamDialog", this.props);
-
         const {
             classes,
             scream: {
@@ -85,7 +85,7 @@ class ScreamDialog extends Component {
             UI: { loading } } = this.props;
 
         const dialogMarkup = loading ? <div className={classes.spinnerDiv}><CircularProgress size={200} thickness={2} /> </div> :
-            (<Grid container spacing={15}>
+            (<Grid container spacing={10}>
                 <Grid item sm={5}>
                     <img src={userImg} alt="Profile" className={classes.profileImage} />
                 </Grid>
@@ -100,13 +100,13 @@ class ScreamDialog extends Component {
                     </Typography>
                     <hr className={classes.invisibleSeparator} />
                     <Typography
-                        variant="b2"
+                        variant="body2"
                         color="textSecondary">
                         {dayjs(createdAt).format('h:mm a, MMM DD YYYY')}
                     </Typography>
                     <hr className={classes.invisibleSeparator} />
                     <Typography
-                        variant="b1"
+                        variant="body1"
                         className={classes.content}>
                         {body}
                     </Typography>
@@ -119,6 +119,7 @@ class ScreamDialog extends Component {
 
                 </Grid>
                 <hr className={classes.visibleSeparator} />
+                <CommentForm screamId={screamId} />
                 <Comments comments={comments} />
             </Grid>)
         return (
@@ -149,6 +150,7 @@ ScreamDialog.propTypes = {
     userHandle: PropTypes.string.isRequired,
     scream: PropTypes.object.isRequired,
     UI: PropTypes.object.isRequired,
+    clearErrors: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -157,7 +159,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-    getScream
+    getScream,
+    clearErrors,
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(ScreamDialog));

@@ -63,7 +63,7 @@ class Comments extends Component {
 }
 
 Comments.propTypes = {
-    comments: PropTypes.object.isRequired,
+    comments: PropTypes.array.isRequired,
     classes: PropTypes.object.isRequired,
 }
 
