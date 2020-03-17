@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,7 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 
 
-import { deleteScream } from '../redux/actions/dataActions';
+import { deleteScream } from '../../redux/actions/dataActions';
 
 const styles = {
     deleteButton: {
@@ -67,7 +67,7 @@ class DeleteScream extends Component {
 DeleteScream.propTypes = {
     deleteScream: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
-    screamId: PropTypes.object.isRequired
+    screamId: PropTypes.string.isRequired
 }
 
 export default connect(null, { deleteScream })(withStyles(styles)(DeleteScream));

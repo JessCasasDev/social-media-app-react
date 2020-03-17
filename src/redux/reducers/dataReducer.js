@@ -10,7 +10,7 @@ import {
 
 const initialState = {
     screams: [],
-    singularSream: {},
+    singularScream: {},
     loading: false
 }
 
@@ -27,11 +27,18 @@ export default function (state = initialState, action) {
                 screams: action.payload,
                 loading: false,
             }
+        case SET_SCREAM:
+            return {
+                ...state,
+                singularScream: action.payload
+            }
         case LIKE_SCREAM:
         case UNLIKE_SCREAM:
             let index = state.screams.findIndex(scream => scream.screamId === action.payload.screamId);
             state.screams[index] = action.payload;
-
+            if (state.singularScream.screamId === action.payload.screamId) {
+                state.singularScream = action.payload
+            }
             return {
                 ...state
             }

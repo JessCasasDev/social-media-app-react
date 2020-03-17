@@ -10,8 +10,8 @@ import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 
-import MyButton from '../util/MyButton';
-import PostScream from './PostScream';
+import MyButton from '../../util/MyButton';
+import PostScream from '../Scream/PostScream';
 
 class NavBar extends Component {
     render() {

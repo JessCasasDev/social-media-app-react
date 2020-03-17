@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { connect } from 'react-redux';
-import { postScream } from '../redux/actions/dataActions';
+import { postScream, clearErrors } from '../../redux/actions/dataActions';
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -13,20 +13,20 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import EditIcon from '@material-ui/icons/Edit';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import CircularProgress from "@material-ui/core/CircularProgress";
+
 const styles = (theme) => ({
     ...theme.formStyle,
     closeButton: {
         position: 'absolute',
         left: '90%',
-        top: '10%'
     },
     button: {
         position: 'relative',
         marginTop: '15px',
         marginBottom: '15px',
+        float: 'right',
     },
     textField: {
         width: '100%'
@@ -44,8 +44,7 @@ class PostScream extends Component {
             this.setState({ errors: nextProps.UI.errors });
         }
         if (!nextProps.UI.errors && !nextProps.UI.loading) {
-            this.setState({ body: '' });
-            this.handleClose();
+            this.setState({ open: false, errors: {}, body: '' });
         }
     }
 
@@ -54,7 +53,7 @@ class PostScream extends Component {
     }
 
     handleClose = () => {
-        this.setState({ open: false, errors: {} });
+        this.props.clearErrors();
     }
 
     handleSubmit = (e) => {
@@ -119,10 +118,17 @@ class PostScream extends Component {
 
 PostScream.propTypes = {
     postScream: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     UI: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
     UI: state.UI
-})
-export default connect(mapStateToProps, { postScream })(withStyles(styles)(PostScream));
+});
+
+const mapActionsToProps = {
+    postScream,
+    clearErrors,
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(PostScream));
