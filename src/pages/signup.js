@@ -149,7 +149,7 @@ signup.propTypes = {
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
     UI: PropTypes.object.isRequired,
-    signup: PropTypes.func.isRequired,
+    signupUser: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
