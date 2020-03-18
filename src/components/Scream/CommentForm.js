@@ -22,8 +22,6 @@ export class CommentForm extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-
         if (nextProps.UI.errors) {
             this.setState({ errors: nextProps.UI.errors, loading: false });
         }

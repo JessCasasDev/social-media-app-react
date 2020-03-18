@@ -21,6 +21,7 @@ import AuthRoute from './util/AuthRoute';
 import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
+import user from './pages/user';
 
 import themeObj from './util/theme';
 import axios from 'axios';
@@ -53,6 +54,7 @@ function App() {
               <Route exact path='/' component={home} />
               <AuthRoute exact path='/login' component={login} />
               <AuthRoute extac path='/signup' component={signup} />
+              <AuthRoute extac path='/users/:handle' component={user} />
             </Switch>
           </div>
         </Router>
