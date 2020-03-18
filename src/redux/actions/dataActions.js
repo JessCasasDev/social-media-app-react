@@ -1,4 +1,17 @@
-import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM } from '../types';
+import {
+    SET_SCREAMS,
+    LOADING_DATA,
+    LIKE_SCREAM,
+    UNLIKE_SCREAM,
+    DELETE_SCREAM,
+    SET_ERRORS,
+    LOADING_UI,
+    CLEAR_ERRORS,
+    POST_SCREAM,
+    SET_SCREAM,
+    STOP_LOADING_UI,
+    SUBMIT_COMMENT,
+} from '../types';
 import axios from 'axios';
 
 //Get all screams
@@ -13,6 +26,33 @@ export const getScreams = () => (dispatch) => {
             dispatch({ type: SET_SCREAMS, payload: [] });
         })
 }
+
+export const getScream = (screamId) => (dispatch) => {
+    dispatch({ type: LOADING_UI });
+    axios.get(`/scream/${screamId}`)
+        .then(result => {
+            dispatch({ type: SET_SCREAM, payload: result.data });
+            dispatch({ type: STOP_LOADING_UI });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+
+/* Create Scream */
+export const postScream = (newScream) => (dispatch) => {
+    dispatch({ type: LOADING_UI });
+    axios.post('/scream', newScream)
+        .then(result => {
+            dispatch({ type: POST_SCREAM, payload: result.data });
+            dispatch(clearErrors());
+        }).catch(error => {
+            console.error(error);
+            dispatch({ type: SET_ERRORS, payload: error.response.data });
+        })
+}
+
 
 /* Like scream */
 export const likeScream = (screamId) => (dispatch) => {
@@ -30,12 +70,35 @@ export const likeScream = (screamId) => (dispatch) => {
 export const unlikeScream = (screamId) => (dispatch) => {
     axios.get(`/scream/${screamId}/unlike`)
         .then(result => {
-            console.log(result.data);
-
             dispatch({
                 type: UNLIKE_SCREAM,
                 payload: result.data,
             });
         })
         .catch(error => console.error(error))
+}
+
+export const submitComment = (screamId, commentData) => (dispatch) => {
+    axios.post(`/scream/${screamId}/comment`, commentData)
+        .then(result => {
+            dispatch({ type: SUBMIT_COMMENT, payload: result.data });
+            dispatch(clearErrors());
+        })
+        .catch(error => {
+            console.error(error)
+            dispatch({ type: SET_ERRORS, payload: error.response.data });
+        })
+}
+
+export const deleteScream = (screamId) => (dispatch) => {
+    axios.delete(`/scream/${screamId}`)
+        .then(() => {
+            dispatch({ type: DELETE_SCREAM, payload: screamId });
+        })
+        .catch(error => console.error(error)
+        )
+}
+
+export const clearErrors = () => (dispatch) => {
+    dispatch({type: CLEAR_ERRORS});
 }

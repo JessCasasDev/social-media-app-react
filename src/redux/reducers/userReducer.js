@@ -27,7 +27,6 @@ export default function (state = initialState, action) {
             return initialState;
 
         case SET_USER:
-            console.log("userReducer", state, action);
             return {
                 authenticated: true,
                 loading: false,
@@ -40,8 +39,6 @@ export default function (state = initialState, action) {
                 loading: true,
             }
         case LIKE_SCREAM:
-            console.log(state.likes);
-            
             return {
                 ...state,
                 likes: [

@@ -34,7 +34,6 @@ export const logoutUser = () => (dispatch) => {
 
 export const getUserData = () => (dispatch) => {
     dispatch({ type: LOADING_USER });
-    console.log("getting user data");
 
     axios.get('/user')
         .then(response => {
@@ -44,7 +43,6 @@ export const getUserData = () => (dispatch) => {
             });
         })
         .catch(error => {
-            console.log("getting user data, eror");
             console.error(error);
         });
 }

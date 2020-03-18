@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 import { connect } from 'react-redux';
-import { logoutUser, uploadImage } from '../redux/actions/userActions';
-import EditDetails from '../components/EditDetails';
+import { logoutUser, uploadImage } from '../../redux/actions/userActions';
+import EditDetails from './EditDetails';
 
 import dayjs from 'dayjs';
 
@@ -20,7 +20,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 const styles = (theme) => ({
     paper: {

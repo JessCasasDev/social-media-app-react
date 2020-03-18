@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Scream from '../components/Scream';
-import Profile from '../components/Profile';
+import Scream from '../components/Scream/Scream';
+import Profile from '../components/Profile/Profile';
 import { connect } from 'react-redux';
 import { getScreams } from '../redux/actions/dataActions';
 import PropTypes from 'prop-types';
@@ -14,7 +14,6 @@ class home extends Component {
 
     render() {
         const { screams, loading } = this.props.data;
-        console.log(loading, this.props.data);
 
         let recentScreamsMarkup =
             !loading ?
