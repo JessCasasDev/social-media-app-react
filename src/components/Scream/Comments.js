@@ -11,11 +11,15 @@ const style = (theme) => ({
     commentImage: {
         maxWidth: "100%",
         height: 100,
+        width: 100,
         objectFit: 'cover',
         borderRadius: '50%',
     },
     commentData: {
         marginLeft: '20px'
+    },
+    commentContainer: {
+        padding: '0 30px',
     }
 })
 class Comments extends Component {
@@ -28,7 +32,7 @@ class Comments extends Component {
                     return (
                         <Fragment key={createdAt}>
                             <Grid item sm={12}>
-                                <Grid container>
+                                <Grid container className={classes.commentContainer}>
                                     <Grid item sm={2}>
                                         <img
                                             src={userImg}
