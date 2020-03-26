@@ -5,6 +5,7 @@ import {
     LOADING_UI,
     SET_UNAUTHENTICATED,
     LOADING_USER,
+    MARK_NOTIFICATIONS_READ,
 } from '../types';
 import axios from 'axios';
 
@@ -65,15 +66,6 @@ export const signupUser = (newUserData, history) => (dispatch) => {
         });
 }
 
-
-
-function setAuthorizationHeader(token) {
-    const FBIToken = `Bearer ${token}`;
-
-    localStorage.setItem('FBToken', FBIToken);
-    axios.defaults.headers.common['Authorization'] = FBIToken;
-}
-
 export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios.post('user/image', formData)
@@ -95,3 +87,19 @@ export const editUserDetails = (userDetails) => (dispatch) => {
             console.error(error);
         });
 }
+
+export const markNotificationsRead = (notificationsIds) => (dispatch) => {
+    axios.post('/notifications', notificationsIds)
+        .then(() => {
+            dispatch({ type: MARK_NOTIFICATIONS_READ });
+        })
+        .catch(error => console.error(error))
+}
+
+function setAuthorizationHeader(token) {
+    const FBIToken = `Bearer ${token}`;
+
+    localStorage.setItem('FBToken', FBIToken);
+    axios.defaults.headers.common['Authorization'] = FBIToken;
+}
+

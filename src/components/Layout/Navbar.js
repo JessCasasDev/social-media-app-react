@@ -8,10 +8,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
 
 import MyButton from '../../util/MyButton';
 import PostScream from '../Scream/PostScream';
+import Notifications from './Notifications';
 
 class NavBar extends Component {
     render() {
@@ -25,9 +25,7 @@ class NavBar extends Component {
                             <MyButton tip="Home">
                                 <Link to="/"><HomeIcon /></Link>
                             </MyButton>
-                            <MyButton tip="Notifications">
-                                <Notifications />
-                            </MyButton>
+                            <Notifications />
                         </Fragment>
                     ) :
                         (<Fragment>
@@ -61,3 +59,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {})(NavBar);
+
