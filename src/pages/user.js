@@ -10,6 +10,9 @@ import { connect } from 'react-redux';
 
 import { getUserData } from '../redux/actions/dataActions';
 
+import ScreamSkeleton from '../util/ScreamSkeleton';
+import ProfileSkeleton from '../util/ProfileSkeleton';
+
 export class user extends Component {
     state = {
         profile: null,
@@ -36,7 +39,7 @@ export class user extends Component {
         const { screamIdParam } = this.state;
 
         const screamsMarkup = loading
-            ? <p>Loading data</p>
+            ? <ScreamSkeleton />
             : screams === null
                 ? <p>No screams from user</p>
                 : !screamIdParam ?
@@ -59,7 +62,7 @@ export class user extends Component {
                 </Grid>
                 <Grid item sm={4} xs={12}>
                     {this.state.profile === null
-                        ? <p>Loading profile </p>
+                        ? <ProfileSkeleton />
                         : <StaticProfile profile={this.state.profile} />
                     }
                 </Grid>
