@@ -30,6 +30,8 @@ const theme = createMuiTheme(themeObj);
 
 const token = localStorage.FBToken;
 
+axios.defaults.baseURL = 'https://us-central1-social-media-e5acf.cloudfunctions.net/api';
+
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < new Date()) {
